@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Best Next Program — 360Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --brand:          #5d5fe3;
+      --brand-dark:     #4a4ccc;
+      --brand-mid:      #8b8def;
+      --brand-light:    #eeeeff;
+      --brand-xlight:   #f4f4fd;
+      --text-primary:   #1a1a2e;
+      --text-secondary: #6b7280;
+      --text-muted:     #9ca3af;
+      --bg:             #f0f0f9;
+      --card:           #fafafe;
+      --border:         #e5e7eb;
+      --shadow:         0 4px 28px rgba(93,95,227,0.1), 0 1px 4px rgba(0,0,0,0.05);
+      --r:              18px;
+      --r-sm:           12px;
+      --r-xs:           8px;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 580px;
+    }
+
+    /* ─── Screens ──────────────────────────────────────────── */
+    .screen {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.35s cubic-bezier(.4,0,.2,1),
+                  transform 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .screen.active  { display: block; }
+    .screen.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Card base ────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 44px 40px;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Welcome card ─────────────────────────────────────── */
+    .card-welcome {
+      background: linear-gradient(145deg, #e8e8fb 0%, #f0f0fd 30%, var(--card) 65%);
+      border-top: 4px solid var(--brand);
+      padding-top: 48px;
+    }
+
+    /* ─── Logo footer ──────────────────────────────────────── */
+    .widget-footer {
+      margin-top: auto;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .widget-footer img {
+      height: 30px;
+      width: auto;
+      opacity: 0.18;
+      display: block;
+    }
+
+    .welcome-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brand);
+      margin-bottom: 16px;
+    }
+    .welcome-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--brand);
+      border-radius: 2px;
+    }
+
+    .welcome-title {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .welcome-title .accent { color: var(--brand); }
+
+    .welcome-desc {
+      font-size: 14.5px;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .welcome-pills {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(93,95,227,0.15);
+      border-radius: 100px;
+      padding: 7px 13px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      flex-shrink: 0;
+    }
+
+    /* ─── Buttons ──────────────────────────────────────────── */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--brand);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      padding: 15px 20px;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(93,95,227,.30);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background: var(--brand-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(93,95,227,.40);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(93,95,227,.28);
+    }
+    .btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 2px;
+      border-radius: var(--r-xs);
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--text-primary); }
+    .btn-ghost svg { width: 15px; height: 15px; }
+
+    /* ─── Progress bar ─────────────────────────────────────── */
+    .progress-header { margin-bottom: 32px; }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .progress-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: .05em;
+    }
+
+    .progress-track {
+      height: 7px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-mid), var(--brand));
+      border-radius: 100px;
+      transition: width .45s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── Question ─────────────────────────────────────────── */
+    .question-text {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.38;
+      letter-spacing: -.01em;
+      margin-bottom: 22px;
+    }
+
+    /* ─── Answer buttons ───────────────────────────────────── */
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .answer-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px 18px;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.5;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+    .answer-btn:hover {
+      border-color: var(--brand-mid);
+      background: var(--brand-xlight);
+      box-shadow: 0 2px 12px rgba(93,95,227,.08);
+    }
+    .answer-btn.selected {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    .answer-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s, background .2s;
+    }
+    .answer-btn:hover .answer-indicator { border-color: var(--brand-mid); }
+    .answer-btn.selected .answer-indicator {
+      border-color: var(--brand);
+      background: var(--brand);
+    }
+    .answer-btn.selected .answer-indicator::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    /* ─── Results ──────────────────────────────────────────── */
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .result-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(93,95,227,.35);
+    }
+    .result-icon-wrap svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .result-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .result-title {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .result-accent-bar {
+      width: 36px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-mid));
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    .result-tagline {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .result-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .result-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    .bullet-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .bullet-icon svg {
+      width: 10px;
+      height: 10px;
+      color: var(--brand);
+    }
+
+    .result-cta { margin-bottom: 16px; }
+
+    /* Retake + secondary combined into one footer row */
+    .result-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .result-also {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .result-also a {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand);
+      text-decoration: none;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color .2s;
+    }
+    .result-also a:hover { border-bottom-color: var(--brand); }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 560px) {
+      body { padding: 16px 12px; align-items: flex-start; }
+      .card { padding: 32px 24px; min-height: 0; }
+      .welcome-title { font-size: 26px; }
+      .question-text { font-size: 18px; }
+      .result-title  { font-size: 23px; }
+    }
+
+    @media (max-width: 400px) {
+      .card { padding: 26px 18px; }
+      .welcome-title { font-size: 23px; }
+      .question-text { font-size: 17px; }
+      .answer-btn    { font-size: 13.5px; padding: 14px 15px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══ WELCOME ══════════════════════════════════════════ -->
+  <div class="screen" id="screen-welcome">
+    <div class="card card-welcome">
+      <div class="welcome-eyebrow">Manager Development</div>
+      <h1 class="welcome-title">Find Your Best <span class="accent">Next Program</span></h1>
+      <p class="welcome-desc">Every manager faces different challenges at different moments. Answer a few quick questions and we'll recommend the most relevant learning experience for you right now.</p>
+      <div class="welcome-pills">
+        <div class="pill"><div class="pill-dot"></div>6 questions</div>
+        <div class="pill"><div class="pill-dot"></div>Under 2 minutes</div>
+        <div class="pill"><div class="pill-dot"></div>Personalised result</div>
+      </div>
+      <button class="btn-primary" onclick="startAssessment()">
+        Start assessment
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="widget-footer">
+        <img src="img15733531002518875393-2x.png" alt="360Learning" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ QUESTION ═════════════════════════════════════════ -->
+  <div class="screen" id="screen-question">
+    <div class="card">
+      <div class="progress-header">
+        <div class="progress-top">
+          <button class="btn-ghost" onclick="goBack()" aria-label="Go back">
+            <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9.5 12L5 7.5 9.5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Back
+          </button>
+          <span class="progress-label" id="question-counter">Question 1 of 6</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <h2 class="question-text" id="question-text"></h2>
+      <div class="answers" id="answers-container"></div>
+    </div>
+  </div>
+
+  <!-- ═══ RESULTS ══════════════════════════════════════════ -->
+  <div class="screen" id="screen-results">
+    <div class="card">
+
+      <div class="result-header">
+        <div class="result-icon-wrap" id="result-icon-wrap" aria-hidden="true"></div>
+        <div class="result-eyebrow">Your recommendation</div>
+      </div>
+
+      <h2 class="result-title" id="result-title"></h2>
+      <div class="result-accent-bar"></div>
+      <p class="result-tagline" id="result-tagline"></p>
+
+      <ul class="result-bullets" id="result-bullets"></ul>
+
+      <div class="result-cta">
+        <a id="result-cta-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <span id="result-cta-label">Start program</span>
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-ghost" onclick="retakeAssessment()">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2.5 8A5.5 5.5 0 1 0 3.8 4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.5 2.5v3H5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Retake
+        </button>
+        <div class="result-also" id="result-also" style="display: none;">
+          Also consider:
+          <a id="result-secondary-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /.app -->
+
+<script>
+  /* ─── Program data ──────────────────────────────────────────── */
+  var icons = {
+    leadershipEssentials:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' +
+      '</svg>',
+    leadingWithoutAuthority:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<circle cx="18" cy="5" r="2.5"/>' +
+        '<circle cx="6" cy="12" r="2.5"/>' +
+        '<circle cx="18" cy="19" r="2.5"/>' +
+        '<path d="M8.5 13.2l7 4M15.5 6.8l-7 4"/>' +
+      '</svg>',
+    coachingSkills:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' +
+        '<line x1="9" y1="10" x2="15" y2="10"/>' +
+        '<line x1="9" y1="14" x2="13" y2="14"/>' +
+      '</svg>'
+  };
+
+  var programs = {
+    leadershipEssentials: {
+      title: "Leadership Essentials",
+      tagline: "Based on your responses, you'd benefit most from strengthening your overall leadership foundation — covering mindset, communication, influence, and navigating change.",
+      bullets: [
+        "Understand the difference between leadership and management",
+        "Strengthen communication, influence, and visionary thinking",
+        "Lead with empathy, credibility, and confidence through change"
+      ],
+      ctaLabel: "Start Leadership Essentials",
+      ctaUrl: "https://app.360learning.com/course/play/68ac8b8973d880d8416b5240"
+    },
+    leadingWithoutAuthority: {
+      title: "Leading Without Authority",
+      tagline: "Based on your responses, your biggest opportunity is influencing others without formal authority — whether cross-functionally, on projects, or across teams.",
+      bullets: [
+        "Learn practical strategies to lead without direct authority",
+        "Build stronger relationships and trust across stakeholders",
+        "Increase your confidence in influencing peers and partners"
+      ],
+      ctaLabel: "Start Leading Without Authority",
+      ctaUrl: "https://app.360learning.com/course/play/68ac8b8973d880d8416b523f"
+    },
+    coachingSkills: {
+      title: "Coaching Skills for Managers",
+      tagline: "Based on your responses, your focus is on helping others succeed — this program will sharpen your coaching habits, feedback quality, and development conversations.",
+      bullets: [
+        "Develop stronger coaching habits",
+        "Give more effective feedback",
+        "Use recognition to support motivation and performance"
+      ],
+      ctaLabel: "Start Coaching Skills for Managers",
+      ctaUrl: "https://app.360learning.com/course/play/68ac8b8973d880d8416b5241"
+    }
+  };
+
+  /* ─── Questions ─────────────────────────────────────────────── */
+  var questions = [
+    {
+      text: "Which challenge feels most urgent for you right now?",
+      answers: [
+        { text: "I want to strengthen my overall leadership approach.", scores: { leadershipEssentials: 3 } },
+        { text: "I need to influence people I do not directly manage.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "I want to better support and develop my team members.", scores: { coachingSkills: 3 } }
+      ]
+    },
+    {
+      text: "Which best describes your current role?",
+      answers: [
+        { text: "I am a new or developing manager.", scores: { leadershipEssentials: 2, coachingSkills: 1 } },
+        { text: "I manage a team and want to become more effective.", scores: { coachingSkills: 2, leadershipEssentials: 1 } },
+        { text: "I often lead projects or initiatives without direct authority.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "I am an individual contributor who needs to influence others.", scores: { leadingWithoutAuthority: 3 } }
+      ]
+    },
+    {
+      text: "What skill would help you most in the next 30 days?",
+      answers: [
+        { text: "Communicating a vision and influencing others.", scores: { leadershipEssentials: 3 } },
+        { text: "Building trust and alignment across stakeholders.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "Giving better feedback and coaching my team.", scores: { coachingSkills: 3 } }
+      ]
+    },
+    {
+      text: "When work gets challenging, what situation do you face most often?",
+      answers: [
+        { text: "Leading through change or uncertainty.", scores: { leadershipEssentials: 3 } },
+        { text: "Getting buy-in from people outside my reporting line.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "Helping someone improve performance or grow.", scores: { coachingSkills: 3 } }
+      ]
+    },
+    {
+      text: "What outcome are you hoping for from training?",
+      answers: [
+        { text: "Become a more confident and effective leader.", scores: { leadershipEssentials: 3 } },
+        { text: "Learn how to lead and influence without formal authority.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "Build stronger coaching and feedback habits as a manager.", scores: { coachingSkills: 3 } }
+      ]
+    },
+    {
+      text: "Which statement sounds most like you?",
+      answers: [
+        { text: "I want to think and act more strategically as a leader.", scores: { leadershipEssentials: 3 } },
+        { text: "I need to build relationships that help me move work forward.", scores: { leadingWithoutAuthority: 3 } },
+        { text: "I want more effective one-to-ones and development conversations.", scores: { coachingSkills: 3 } }
+      ]
+    }
+  ];
+
+  /* ─── State ─────────────────────────────────────────────────── */
+  var currentQ = 0;
+  var scores   = { leadershipEssentials: 0, leadingWithoutAuthority: 0, coachingSkills: 0 };
+  var history  = [];
+  var q1Scores = null;
+
+  /* ─── Screen management ─────────────────────────────────────── */
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(function(s) {
+      s.classList.remove('active', 'visible');
+    });
+    var el = document.getElementById(id);
+    el.classList.add('active');
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        el.classList.add('visible');
+      });
+    });
+  }
+
+  /* ─── Start ─────────────────────────────────────────────────── */
+  function startAssessment() {
+    currentQ = 0;
+    scores   = { leadershipEssentials: 0, leadingWithoutAuthority: 0, coachingSkills: 0 };
+    history  = [];
+    q1Scores = null;
+    renderQuestion();
+    showScreen('screen-question');
+  }
+
+  /* ─── Render question ───────────────────────────────────────── */
+  function renderQuestion() {
+    var q = questions[currentQ];
+
+    document.getElementById('question-counter').textContent =
+      'Question ' + (currentQ + 1) + ' of ' + questions.length;
+
+    document.getElementById('progress-fill').style.width =
+      ((currentQ / questions.length) * 100) + '%';
+
+    document.getElementById('question-text').textContent = q.text;
+
+    var container = document.getElementById('answers-container');
+    container.innerHTML = '';
+
+    q.answers.forEach(function(answer, idx) {
+      var btn = document.createElement('button');
+      btn.className = 'answer-btn';
+      btn.setAttribute('aria-label', answer.text);
+
+      var indicator = document.createElement('span');
+      indicator.className = 'answer-indicator';
+      indicator.setAttribute('aria-hidden', 'true');
+
+      var label = document.createElement('span');
+      label.textContent = answer.text;
+
+      btn.appendChild(indicator);
+      btn.appendChild(label);
+      btn.addEventListener('click', function() { selectAnswer(idx); });
+      container.appendChild(btn);
+    });
+  }
+
+  /* ─── Select answer ─────────────────────────────────────────── */
+  function selectAnswer(idx) {
+    var answer = questions[currentQ].answers[idx];
+
+    var btns = document.querySelectorAll('.answer-btn');
+    btns.forEach(function(b) { b.classList.remove('selected'); });
+    btns[idx].classList.add('selected');
+
+    history[currentQ] = answer.scores;
+    if (currentQ === 0) { q1Scores = answer.scores; }
+
+    Object.keys(answer.scores).forEach(function(k) {
+      scores[k] = (scores[k] || 0) + answer.scores[k];
+    });
+
+    setTimeout(function() {
+      currentQ++;
+      if (currentQ < questions.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }, 300);
+  }
+
+  /* ─── Back navigation ───────────────────────────────────────── */
+  function goBack() {
+    if (currentQ === 0) {
+      showScreen('screen-welcome');
+      return;
+    }
+
+    var prev = history[currentQ - 1];
+    if (prev) {
+      Object.keys(prev).forEach(function(k) {
+        scores[k] = (scores[k] || 0) - prev[k];
+      });
+      history[currentQ - 1] = null;
+    }
+
+    currentQ--;
+    if (currentQ === 0) { q1Scores = null; }
+    renderQuestion();
+  }
+
+  /* ─── Show results ──────────────────────────────────────────── */
+  function showResults() {
+    var keys   = Object.keys(scores);
+    var sorted = keys.slice().sort(function(a, b) { return scores[b] - scores[a]; });
+
+    var primaryKey   = sorted[0];
+    var secondaryKey = sorted[1];
+
+    if (scores[sorted[0]] === scores[sorted[1]] && q1Scores) {
+      var q1Key = Object.keys(q1Scores)[0];
+      if (q1Key) {
+        primaryKey   = q1Key;
+        secondaryKey = sorted.find(function(k) { return k !== primaryKey; }) || sorted[1];
+      }
+    }
+
+    var primary   = programs[primaryKey];
+    var secondary = programs[secondaryKey];
+
+    // Icon
+    document.getElementById('result-icon-wrap').innerHTML = icons[primaryKey] || '';
+
+    // Text
+    document.getElementById('result-title').textContent   = primary.title;
+    document.getElementById('result-tagline').textContent = primary.tagline;
+
+    // Bullets
+    var bulletsEl = document.getElementById('result-bullets');
+    bulletsEl.innerHTML = '';
+    primary.bullets.forEach(function(text) {
+      var li = document.createElement('li');
+      li.innerHTML =
+        '<span class="bullet-icon" aria-hidden="true">' +
+          '<svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M1.5 5l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>' +
+        '</span>' +
+        '<span>' + text + '</span>';
+      bulletsEl.appendChild(li);
+    });
+
+    // CTA
+    document.getElementById('result-cta-link').href          = primary.ctaUrl;
+    document.getElementById('result-cta-label').textContent  = primary.ctaLabel;
+
+    // Secondary
+    var alsoEl = document.getElementById('result-also');
+    if (secondary && secondaryKey !== primaryKey && scores[secondaryKey] > 0) {
+      var secLink = document.getElementById('result-secondary-link');
+      secLink.textContent = secondary.title;
+      secLink.href        = secondary.ctaUrl;
+      alsoEl.style.display = 'block';
+    } else {
+      alsoEl.style.display = 'none';
+    }
+
+    document.getElementById('progress-fill').style.width = '100%';
+    showScreen('screen-results');
+  }
+
+  /* ─── Retake ────────────────────────────────────────────────── */
+  function retakeAssessment() {
+    currentQ = 0;
+    scores   = { leadershipEssentials: 0, leadingWithoutAuthority: 0, coachingSkills: 0 };
+    history  = [];
+    q1Scores = null;
+    showScreen('screen-welcome');
+  }
+
+  /* ─── Init ──────────────────────────────────────────────────── */
+  showScreen('screen-welcome');
+</script>
+</body>
+</html>
