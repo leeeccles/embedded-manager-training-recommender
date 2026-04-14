@@ -40,6 +40,7 @@
       background: transparent;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 0;
@@ -48,8 +49,7 @@
     }
 
     .app {
-      width: 100%;
-      max-width: 420px;
+      width: min(420px, 100%);
     }
 
     /* ─── Screens ──────────────────────────────────────────── */
