@@ -38,18 +38,15 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: transparent;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 0;
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
     }
 
     .app {
-      width: min(420px, 100%);
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     /* ─── Screens ──────────────────────────────────────────── */
@@ -455,7 +452,6 @@
   <!-- ═══ WELCOME ══════════════════════════════════════════ -->
   <div class="screen" id="screen-welcome">
     <div class="card card-welcome">
-      <div class="welcome-eyebrow">Manager Development</div>
       <h1 class="welcome-title">Find Your Best <span class="accent">Next Program</span></h1>
       <p class="welcome-desc">Every manager faces different challenges at different moments. Answer a few quick questions and we'll recommend the most relevant learning experience for you right now.</p>
       <div class="welcome-pills">
