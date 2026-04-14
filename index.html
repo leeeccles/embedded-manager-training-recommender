@@ -38,7 +38,7 @@
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: transparent;
-      padding: 0;
+      padding: 10px 0 0 0;
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
     }
@@ -137,6 +137,7 @@
       flex-wrap: wrap;
       gap: 7px;
       margin-bottom: 22px;
+      justify-content: center;
     }
 
     .pill {
@@ -457,7 +458,6 @@
       <p class="welcome-desc">Every manager faces different challenges at different moments. Answer a few quick questions and we'll recommend the most relevant learning experience for you right now.</p>
       <div class="welcome-pills">
         <div class="pill"><div class="pill-dot"></div>6 questions</div>
-        <div class="pill"><div class="pill-dot"></div>Under 2 minutes</div>
         <div class="pill"><div class="pill-dot"></div>Personalised result</div>
       </div>
       <button class="btn-primary" onclick="startAssessment()">
