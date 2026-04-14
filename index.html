@@ -26,172 +26,141 @@
       --text-primary:   #1a1a2e;
       --text-secondary: #6b7280;
       --text-muted:     #9ca3af;
-      --bg:             #f0f0f9;
-      --card:           #fafafe;
       --border:         #e5e7eb;
-      --shadow:         0 2px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
-      --r:              18px;
-      --r-sm:           12px;
-      --r-xs:           8px;
+      --r:              12px;
+      --r-sm:           8px;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: transparent;
-      padding: 20px 0 0 0;
+      padding: 0;
       color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
     }
 
-    .app {
+    .app { width: 100%; }
+
+    /* ─── Module (replaces card) ───────────────────────────── */
+    .module {
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
+      background: linear-gradient(135deg, #ececfb 0%, #f5f5fd 45%, #fafafe 100%);
+      border-radius: var(--r);
+      padding: 28px 32px;
     }
 
-    /* ─── Screens ──────────────────────────────────────────── */
+    /* ─── Screen transitions ───────────────────────────────── */
     .screen {
       display: none;
       opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.35s cubic-bezier(.4,0,.2,1),
-                  transform 0.35s cubic-bezier(.4,0,.2,1);
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     .screen.active  { display: block; }
     .screen.visible { opacity: 1; transform: translateY(0); }
 
-    /* ─── Card base ────────────────────────────────────────── */
-    .card {
-      background: var(--card);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding: 32px 28px 20px 28px;
-      height: 480px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ─── Welcome card ─────────────────────────────────────── */
-    .card-welcome {
-      background: linear-gradient(145deg, #e8e8fb 0%, #f0f0fd 30%, var(--card) 65%);
-      border-top: 4px solid var(--brand);
-      padding-top: 32px;
-      justify-content: center;
-    }
-
-    /* ─── Logo footer ──────────────────────────────────────── */
-    .widget-footer {
-      padding-top: 28px;
-      display: flex;
+    /* ═══════════════════════════════════════════════════════
+       WELCOME
+    ═══════════════════════════════════════════════════════ */
+    .welcome-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
       align-items: center;
-      justify-content: center;
     }
 
-    .widget-footer img {
-      height: 30px;
-      width: auto;
-      opacity: 0.18;
-      display: block;
-    }
-
-    .welcome-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--brand);
-      margin-bottom: 12px;
-    }
-    .welcome-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 18px;
-      height: 2px;
-      background: var(--brand);
-      border-radius: 2px;
-    }
-
-    .welcome-title {
-      font-size: 24px;
+    .welcome-left h1 {
+      font-size: 22px;
       font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -.02em;
-      margin-bottom: 12px;
+      line-height: 1.22;
+      letter-spacing: -.025em;
+      margin-bottom: 10px;
     }
-    .welcome-title .accent { color: var(--brand); }
+    .welcome-left h1 .accent { color: var(--brand); }
 
-    .welcome-desc {
-      font-size: 13.5px;
+    .welcome-left p {
+      font-size: 13px;
       line-height: 1.65;
       color: var(--text-secondary);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .welcome-pills {
+    .pills {
       display: flex;
-      flex-direction: row;
+      gap: 8px;
       flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 22px;
-      justify-content: center;
     }
 
     .pill {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.75);
+      gap: 6px;
+      background: rgba(255,255,255,0.85);
       border: 1px solid rgba(93,95,227,0.15);
       border-radius: 100px;
-      padding: 7px 13px;
-      font-size: 12.5px;
+      padding: 5px 12px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-secondary);
     }
 
     .pill-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--brand);
       flex-shrink: 0;
     }
 
-    /* ─── Buttons ──────────────────────────────────────────── */
-    .btn-primary {
+    .welcome-right {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(93,95,227,0.12);
+      border-radius: var(--r);
+      padding: 22px 24px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      background: var(--brand);
-      color: #fff;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta-icon { font-size: 20px; line-height: 1; }
+
+    .cta-heading {
       font-size: 15px;
       font-weight: 700;
       letter-spacing: -.01em;
-      padding: 15px 20px;
+      color: var(--text-primary);
+    }
+
+    .cta-sub {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    /* ─── Buttons ──────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      padding: 12px 20px;
       border-radius: var(--r-sm);
       border: none;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 4px 16px rgba(93,95,227,.30);
-      transition: background .2s, transform .15s, box-shadow .2s;
+      white-space: nowrap;
+      transition: background .2s, transform .15s;
     }
-    .btn-primary:hover {
-      background: var(--brand-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(93,95,227,.40);
-    }
-    .btn-primary:active {
-      transform: translateY(0);
-      box-shadow: 0 3px 10px rgba(93,95,227,.28);
-    }
-    .btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-primary:hover  { background: var(--brand-dark); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary svg    { width: 15px; height: 15px; flex-shrink: 0; }
+    .btn-primary.full   { width: 100%; }
 
     .btn-ghost {
       display: inline-flex;
@@ -204,32 +173,25 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      padding: 8px 2px;
-      border-radius: var(--r-xs);
+      padding: 6px 0;
       transition: color .2s;
     }
     .btn-ghost:hover { color: var(--text-primary); }
-    .btn-ghost svg { width: 15px; height: 15px; }
+    .btn-ghost svg { width: 14px; height: 14px; }
 
-    /* ─── Progress bar ─────────────────────────────────────── */
-    .progress-header { margin-bottom: 22px; }
-
-    .progress-top {
+    /* ═══════════════════════════════════════════════════════
+       QUESTION
+    ═══════════════════════════════════════════════════════ */
+    .question-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .progress-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: .05em;
+      gap: 14px;
+      margin-bottom: 20px;
     }
 
     .progress-track {
-      height: 7px;
+      flex: 1;
+      height: 4px;
       background: var(--border);
       border-radius: 100px;
       overflow: hidden;
@@ -239,47 +201,53 @@
       height: 100%;
       background: linear-gradient(90deg, var(--brand-mid), var(--brand));
       border-radius: 100px;
-      transition: width .45s cubic-bezier(.4,0,.2,1);
+      transition: width .4s cubic-bezier(.4,0,.2,1);
     }
 
-    /* ─── Question ─────────────────────────────────────────── */
-    .question-text {
-      font-size: 17px;
+    .progress-label {
+      font-size: 12px;
       font-weight: 700;
-      line-height: 1.38;
+      color: var(--text-muted);
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .question-text {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
       letter-spacing: -.01em;
       margin-bottom: 16px;
     }
 
-    /* ─── Answer buttons ───────────────────────────────────── */
+    /* 2-column answer grid */
     .answers {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
     .answer-btn {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 10px;
       width: 100%;
-      background: #ffffff;
-      border: 2px solid var(--border);
+      background: rgba(255,255,255,0.8);
+      border: 1.5px solid var(--border);
       border-radius: var(--r-sm);
       padding: 12px 14px;
       text-align: left;
       cursor: pointer;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--text-primary);
-      line-height: 1.5;
-      transition: border-color .2s, background .2s, box-shadow .2s;
+      line-height: 1.45;
+      transition: border-color .2s, background .2s;
     }
     .answer-btn:hover {
       border-color: var(--brand-mid);
       background: var(--brand-xlight);
-      box-shadow: 0 2px 12px rgba(93,95,227,.08);
     }
     .answer-btn.selected {
       border-color: var(--brand);
@@ -287,109 +255,105 @@
     }
 
     .answer-indicator {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2px solid var(--border);
       flex-shrink: 0;
+      margin-top: 2px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: border-color .2s, background .2s;
     }
-    .answer-btn:hover .answer-indicator { border-color: var(--brand-mid); }
+    .answer-btn:hover   .answer-indicator { border-color: var(--brand-mid); }
     .answer-btn.selected .answer-indicator {
       border-color: var(--brand);
-      background: var(--brand);
+      background:   var(--brand);
     }
     .answer-btn.selected .answer-indicator::after {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: #fff;
     }
 
-    /* ─── Results ──────────────────────────────────────────── */
-    .result-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 14px;
+    /* ═══════════════════════════════════════════════════════
+       RESULTS
+    ═══════════════════════════════════════════════════════ */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
     }
 
-    .result-icon-wrap {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: var(--brand);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: #fff;
-      box-shadow: 0 4px 14px rgba(93,95,227,.35);
-    }
-    .result-icon-wrap svg {
-      width: 22px;
-      height: 22px;
-    }
-
+    /* Left */
     .result-eyebrow {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--brand);
-    }
-
-    .result-title {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      line-height: 1.2;
       margin-bottom: 8px;
     }
 
+    .result-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
     .result-accent-bar {
-      width: 36px;
-      height: 4px;
+      width: 30px;
+      height: 3px;
       background: linear-gradient(90deg, var(--brand), var(--brand-mid));
       border-radius: 100px;
       margin-bottom: 12px;
     }
 
     .result-tagline {
-      font-size: 13.5px;
-      font-weight: 500;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .result-left-footer {
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Right panel */
+    .result-right {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(93,95,227,0.12);
+      border-radius: var(--r);
+      padding: 20px;
     }
 
     .result-bullets {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
     .result-bullets li {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      font-size: 14px;
+      gap: 10px;
+      font-size: 13px;
       font-weight: 500;
-      line-height: 1.5;
+      line-height: 1.45;
       color: var(--text-primary);
     }
 
     .bullet-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px; height: 18px;
       border-radius: 50%;
       background: var(--brand-light);
       display: flex;
@@ -398,53 +362,46 @@
       flex-shrink: 0;
       margin-top: 1px;
     }
-    .bullet-icon svg {
-      width: 10px;
-      height: 10px;
-      color: var(--brand);
-    }
-
-    .result-cta { margin-bottom: 16px; }
-
-    /* Retake + secondary combined into one footer row */
-    .result-actions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-      gap: 12px;
-    }
+    .bullet-icon svg { width: 9px; height: 9px; color: var(--brand); }
 
     .result-also {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
-      text-align: right;
-      flex-shrink: 0;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
     }
     .result-also a {
       display: block;
+      margin-top: 3px;
       font-size: 13px;
       font-weight: 700;
       color: var(--brand);
       text-decoration: none;
-      border-bottom: 1.5px solid transparent;
-      transition: border-color .2s;
     }
-    .result-also a:hover { border-bottom-color: var(--brand); }
+    .result-also a:hover { text-decoration: underline; }
+
+    /* ─── Footer logo ──────────────────────────────────────── */
+    .widget-footer {
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+    }
+    .widget-footer img {
+      height: 22px;
+      opacity: 0.16;
+    }
+
+    /* hidden element kept for JS compatibility */
+    #result-icon-wrap { display: none; }
 
     /* ─── Responsive ───────────────────────────────────────── */
-    @media (max-width: 460px) {
-      body { padding: 12px; align-items: flex-start; }
-      .card { padding: 22px 18px; }
-      .welcome-title { font-size: 21px; }
-      .question-text { font-size: 15px; }
-      .result-title  { font-size: 19px; }
-    }
-
-    @media (max-width: 360px) {
-      .card { padding: 18px 14px; }
-      .answer-btn    { font-size: 13px; padding: 10px 12px; }
+    @media (max-width: 600px) {
+      .module { padding: 20px 18px; }
+      .welcome-grid,
+      .results-grid { grid-template-columns: 1fr; gap: 16px; }
+      .answers { grid-template-columns: 1fr; }
+      .welcome-left h1 { font-size: 20px; }
     }
   </style>
 </head>
@@ -453,19 +410,31 @@
 
   <!-- ═══ WELCOME ══════════════════════════════════════════ -->
   <div class="screen" id="screen-welcome">
-    <div class="card card-welcome">
-      <h1 class="welcome-title">Find Your Best <span class="accent">Next Program</span></h1>
-      <p class="welcome-desc">Every manager faces different challenges at different moments. Answer a few quick questions and we'll recommend the most relevant learning experience for you right now.</p>
-      <div class="welcome-pills">
-        <div class="pill"><div class="pill-dot"></div>6 questions</div>
-        <div class="pill"><div class="pill-dot"></div>Personalised result</div>
+    <div class="module">
+      <div class="welcome-grid">
+
+        <div class="welcome-left">
+          <h1>Find Your Best <span class="accent">Next Program</span></h1>
+          <p>Every manager faces different challenges at different moments. Answer a few quick questions and we'll recommend the most relevant learning experience for you right now.</p>
+          <div class="pills">
+            <div class="pill"><div class="pill-dot"></div>6 questions</div>
+            <div class="pill"><div class="pill-dot"></div>Personalised result</div>
+          </div>
+        </div>
+
+        <div class="welcome-right">
+          <div class="cta-icon">💡</div>
+          <p class="cta-heading">Ready to boost your skills?</p>
+          <p class="cta-sub">Take our quick assessment to find your next best learning opportunity.</p>
+          <button class="btn-primary" onclick="startAssessment()">
+            Start assessment
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
       </div>
-      <button class="btn-primary" onclick="startAssessment()">
-        Start assessment
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
       <div class="widget-footer">
         <img src="img15733531002518875393-2x.png" alt="360Learning" />
       </div>
@@ -474,67 +443,68 @@
 
   <!-- ═══ QUESTION ═════════════════════════════════════════ -->
   <div class="screen" id="screen-question">
-    <div class="card">
-      <div class="progress-header">
-        <div class="progress-top">
-          <button class="btn-ghost" onclick="goBack()" aria-label="Go back">
-            <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M9.5 12L5 7.5 9.5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Back
-          </button>
-          <span class="progress-label" id="question-counter">Question 1 of 6</span>
-        </div>
+    <div class="module">
+
+      <div class="question-header">
+        <button class="btn-ghost" onclick="goBack()" aria-label="Go back">
+          <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path d="M9.5 12L5 7.5 9.5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
         <div class="progress-track">
           <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
         </div>
+        <span class="progress-label" id="question-counter">Question 1 of 6</span>
       </div>
 
       <h2 class="question-text" id="question-text"></h2>
       <div class="answers" id="answers-container"></div>
+
     </div>
   </div>
 
   <!-- ═══ RESULTS ══════════════════════════════════════════ -->
   <div class="screen" id="screen-results">
-    <div class="card">
+    <div class="module">
+      <div class="results-grid">
 
-      <div class="result-header">
-        <div class="result-icon-wrap" id="result-icon-wrap" aria-hidden="true"></div>
-        <div class="result-eyebrow">Your recommendation</div>
-      </div>
-
-      <h2 class="result-title" id="result-title"></h2>
-      <div class="result-accent-bar"></div>
-      <p class="result-tagline" id="result-tagline"></p>
-
-      <ul class="result-bullets" id="result-bullets"></ul>
-
-      <div class="result-cta">
-        <a id="result-cta-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
-          <span id="result-cta-label">Start program</span>
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <div class="result-actions">
-        <button class="btn-ghost" onclick="retakeAssessment()">
-          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M2.5 8A5.5 5.5 0 1 0 3.8 4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2.5 2.5v3H5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Retake
-        </button>
-        <div class="result-also" id="result-also" style="display: none;">
-          Also consider:
-          <a id="result-secondary-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+        <div class="results-left">
+          <div class="result-eyebrow">Your recommendation</div>
+          <h2 class="result-title" id="result-title"></h2>
+          <div class="result-accent-bar"></div>
+          <p class="result-tagline" id="result-tagline"></p>
+          <div class="result-left-footer">
+            <button class="btn-ghost" onclick="retakeAssessment()">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2.5 8A5.5 5.5 0 1 0 3.8 4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.5 2.5v3H5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Retake assessment
+            </button>
+          </div>
         </div>
-      </div>
 
+        <div class="result-right">
+          <ul class="result-bullets" id="result-bullets"></ul>
+          <a id="result-cta-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary full">
+            <span id="result-cta-label">Start program</span>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="result-also" id="result-also" style="display:none;">
+            Also consider:
+            <a id="result-secondary-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <!-- hidden — kept so JS can write to it without errors -->
+  <span id="result-icon-wrap" aria-hidden="true"></span>
 
 </div><!-- /.app -->
 
@@ -777,14 +747,10 @@
     var primary   = programs[primaryKey];
     var secondary = programs[secondaryKey];
 
-    // Icon
     document.getElementById('result-icon-wrap').innerHTML = icons[primaryKey] || '';
-
-    // Text
     document.getElementById('result-title').textContent   = primary.title;
     document.getElementById('result-tagline').textContent = primary.tagline;
 
-    // Bullets
     var bulletsEl = document.getElementById('result-bullets');
     bulletsEl.innerHTML = '';
     primary.bullets.forEach(function(text) {
@@ -799,11 +765,9 @@
       bulletsEl.appendChild(li);
     });
 
-    // CTA
-    document.getElementById('result-cta-link').href          = primary.ctaUrl;
-    document.getElementById('result-cta-label').textContent  = primary.ctaLabel;
+    document.getElementById('result-cta-link').href         = primary.ctaUrl;
+    document.getElementById('result-cta-label').textContent = primary.ctaLabel;
 
-    // Secondary
     var alsoEl = document.getElementById('result-also');
     if (secondary && secondaryKey !== primaryKey && scores[secondaryKey] > 0) {
       var secLink = document.getElementById('result-secondary-link');
