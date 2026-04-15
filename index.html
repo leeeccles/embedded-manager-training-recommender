@@ -396,10 +396,20 @@
     #result-icon-wrap { display: none; }
 
     /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .results-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .module { padding: 20px 20px; }
+      .question-header { margin-bottom: 14px; }
+      .question-text { font-size: 15px; margin-bottom: 12px; }
+      .result-tagline { margin-bottom: 14px; }
+    }
+
     @media (max-width: 600px) {
       .module { padding: 20px 18px; }
-      .welcome-grid,
-      .results-grid { grid-template-columns: 1fr; gap: 16px; }
+      .welcome-grid { grid-template-columns: 1fr; gap: 16px; }
       .answers { grid-template-columns: 1fr; }
       .welcome-left h1 { font-size: 20px; }
     }
