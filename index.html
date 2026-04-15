@@ -44,9 +44,11 @@
     /* ─── Module (replaces card) ───────────────────────────── */
     .module {
       width: 100%;
+      height: 340px;
+      overflow: hidden;
       background: linear-gradient(135deg, #ececfb 0%, #f5f5fd 45%, #fafafe 100%);
       border-radius: var(--r);
-      padding: 28px 32px;
+      padding: 22px 28px;
     }
 
     /* ─── Screen transitions ───────────────────────────────── */
@@ -65,7 +67,7 @@
     .welcome-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      gap: 24px;
       align-items: center;
     }
 
@@ -186,7 +188,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .progress-track {
@@ -217,7 +219,7 @@
       font-weight: 700;
       line-height: 1.4;
       letter-spacing: -.01em;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     /* 2-column answer grid */
@@ -284,7 +286,7 @@
     .results-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      gap: 20px;
       align-items: start;
     }
 
@@ -295,7 +297,7 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--brand);
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
 
     .result-title {
@@ -303,7 +305,7 @@
       font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.2;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .result-accent-bar {
@@ -311,18 +313,18 @@
       height: 3px;
       background: linear-gradient(90deg, var(--brand), var(--brand-mid));
       border-radius: 100px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .result-tagline {
       font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .result-left-footer {
-      padding-top: 16px;
+      padding-top: 12px;
       border-top: 1px solid var(--border);
     }
 
@@ -338,8 +340,8 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .result-bullets li {
@@ -367,8 +369,8 @@
     .result-also {
       font-size: 12px;
       color: var(--text-muted);
-      margin-top: 12px;
-      padding-top: 12px;
+      margin-top: 8px;
+      padding-top: 8px;
       border-top: 1px solid var(--border);
     }
     .result-also a {
@@ -396,20 +398,9 @@
     #result-icon-wrap { display: none; }
 
     /* ─── Responsive ───────────────────────────────────────── */
-    @media (max-width: 720px) {
-      .results-grid { grid-template-columns: 1fr; gap: 16px; }
-    }
-
-    @media (max-width: 640px) {
-      .module { padding: 20px 20px; }
-      .question-header { margin-bottom: 14px; }
-      .question-text { font-size: 15px; margin-bottom: 12px; }
-      .result-tagline { margin-bottom: 14px; }
-    }
-
     @media (max-width: 600px) {
-      .module { padding: 20px 18px; }
-      .welcome-grid { grid-template-columns: 1fr; gap: 16px; }
+      .module { padding: 18px 16px; }
+      .welcome-grid { grid-template-columns: 1fr; gap: 14px; }
       .answers { grid-template-columns: 1fr; }
       .welcome-left h1 { font-size: 20px; }
     }
